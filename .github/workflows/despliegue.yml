@@ -1,0 +1,26 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # Puedes necesitar otros ajustes según tus necesidades, como el usuario y la dirección del servidor SSH
+
+      - name: Deploy to server
+        run: |
+          # Ejemplo: Copiar archivos a través de SCP
+          # Ajusta los comandos según tu entorno y necesidades
+          scp -r ./tu_proyecto usuario@direccion_servidor:/ruta/destino
